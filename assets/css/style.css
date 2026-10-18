@@ -4,10 +4,6 @@
 
 :root {
 
-  /**
-   * colors
-   */
-
   /* gradient */
 
   --bg-gradient-onyx: linear-gradient(
@@ -56,10 +52,6 @@
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
 
-  /**
-   * typography
-   */
-
   /* font-family */
   --ff-poppins: 'Poppins', sans-serif;
 
@@ -79,20 +71,14 @@
   --fw-500: 500;
   --fw-600: 600;
 
-  /**
-   * shadow
-   */
-  
+  /* shadow */
   --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
   --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.25);
   --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.25);
   --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.15);
   --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.25);
 
-  /**
-   * transition
-   */
-
+  /* transition */
   --transition-1: 0.25s ease;
   --transition-2: 0.5s ease-in-out;
 
@@ -243,8 +229,8 @@ article.active {
 }
 
 .has-scrollbar::-webkit-scrollbar {
-  width: 5px; /* for vertical scrollbar */
-  height: 5px; /* for horizontal scrollbar */
+  width: 5px;
+  height: 5px;
 }
 
 .has-scrollbar::-webkit-scrollbar-track {
@@ -430,7 +416,6 @@ main {
   font-size: 18px;
 }
 
-
 .social-item .social-link:hover { color: var(--light-gray); }
 
 
@@ -518,17 +503,14 @@ main {
   overflow: hidden;
 }
 
-
-/* Hover interaction */
-.about-text:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 0 45px rgba(255, 204, 0, 0.35),
-    inset 0 0 28px rgba(255, 255, 255, 0.07);
-}
-
-.about-text:hover::after {
-  left: 140%;
+/* Hover interaction (only on devices that really hover) */
+@media (hover: hover) {
+  .about-text:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 45px rgba(255, 204, 0, 0.35),
+      inset 0 0 28px rgba(255, 255, 255, 0.07);
+  }
 }
 
 /* Paragraph spacing */
@@ -571,45 +553,6 @@ main {
 
 .service-list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.service-item {
-  position: relative;
-  background: var(--border-gradient-onyx);
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: var(--shadow-2);
-  z-index: 1;
-}
-
-.service-item::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  background: var(--bg-gradient-jet);
-  border-radius: inherit;
-  z-index: -1;
-}
-
-.service-icon-box { margin-bottom: 10px; }
-
-.service-icon-box img { margin: auto; }
-
-.service-content-box { text-align: center; }
-
-.service-item-title { margin-bottom: 7px; }
-
-.service-item-text {
-  color: var(--light-gray);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-3);
-  line-height: 1.6;
-}
-
-.service-list {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
 }
@@ -626,7 +569,12 @@ main {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   transition: all 0.35s ease;
   overflow: hidden;
+  z-index: 1;
 }
+
+.service-icon-box { margin-bottom: 10px; }
+
+.service-icon-box img { margin: auto; }
 
 /* Glass shimmer layer */
 .service-item::after {
@@ -647,21 +595,19 @@ main {
 }
 
 /* Hover glow + shimmer */
-.service-item:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow:
-    0 0 12px rgba(255, 204, 0, 0.35),
-    0 0 32px rgba(255, 204, 0, 0.2);
-}
+@media (hover: hover) {
+  .service-item:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+      0 0 12px rgba(255, 204, 0, 0.35),
+      0 0 32px rgba(255, 204, 0, 0.2);
+  }
 
-.service-item:hover::after {
-  left: 140%;
+  .service-item:hover::after { left: 140%; }
 }
 
 /* Content */
-.service-content-box {
-  text-align: center;
-}
+.service-content-box { text-align: center; }
 
 .service-item-title {
   margin-bottom: 8px;
@@ -676,9 +622,7 @@ main {
 }
 
 /* Mobile touch support */
-.service-item:active {
-  transform: scale(0.97);
-}
+.service-item:active { transform: scale(0.97); }
 
 
 
@@ -768,7 +712,7 @@ main {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: #1e1e1f(0, 0%, 5%);
+  background: hsl(0, 0%, 5%);   /* fixed: was invalid */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -850,22 +794,38 @@ main {
 
 
 /* =========================
-   CLEAN SKILLS GRID
+   SKILLS GRID (mobile first)
 ========================= */
 
+.clients-title,
+.skills-title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+/* Mobile: 2 equal columns, proper gap */
 .clients-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 32px;
-  justify-items: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 10px 0 20px;
+  overflow: visible;
+  justify-items: stretch;
 }
 
 /* Skill card */
 .skill {
-  width: 130px;
-  height: 130px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  max-width: 160px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
   background: #1e1e1f;
-  border-radius: 20px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -874,17 +834,16 @@ main {
   transition: all 0.3s ease;
 }
 
-/* ICON CONTAINER (MOST IMPORTANT FIX) */
+/* Icon container */
 .skill .icon-box {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-/* ICON NORMALIZATION */
 .skill img {
   max-width: 100%;
   max-height: 100%;
@@ -898,29 +857,7 @@ main {
   color: #fff;
 }
 
-/* Hover – only text bold */
-.skill:hover span {
-  font-weight: 700;
-}
-
-/* Active glow */
-.skill.active {
-  box-shadow:
-    0 0 14px rgba(255, 204, 0, 0.6),
-    0 0 35px rgba(255, 204, 0, 0.35);
-  transform: translateY(-4px);
-}
-
-/* =========================
-   CONTINUOUS HOVER SHIMMER
-========================= */
-
-.skill {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Shine layer */
+/* Shine layer (hidden until hover) */
 .skill::before {
   content: "";
   position: absolute;
@@ -936,25 +873,36 @@ main {
   );
   transform: skewX(-25deg);
   opacity: 0;
+  pointer-events: none;
 }
 
-/* Hover → shimmer keeps running */
+/* Glow + shimmer ONLY on real hover devices (desktop).
+   On phones nothing stays glowing. */
+/* Glow: always visible on all cards (desktop + mobile) */
+.skill,
+.skill.active {
+  box-shadow:
+    0 0 14px rgba(255, 204, 0, 0.6),
+    0 0 35px rgba(255, 204, 0, 0.35);
+}
+
+.skill.active { transform: translateY(-4px); }
+
+/* Hover: bold text + shimmer */
+.skill:hover span { font-weight: 700; }
+
 .skill:hover::before {
   opacity: 1;
   animation: glassShine 2.5s ease-in-out infinite;
 }
 
-/* Animation with GAP (delay feel) */
+/* Touch feedback on phones: quick press effect */
+.skill:active { transform: scale(0.96); }
+
 @keyframes glassShine {
-  0% {
-    left: -75%;
-  }
-  30% {
-    left: 125%;
-  }
-  100% {
-    left: 125%;
-  }
+  0%   { left: -75%; }
+  30%  { left: 125%; }
+  100% { left: 125%; }
 }
 
 
@@ -967,6 +915,38 @@ main {
 \*-----------------------------------*/
 
 .article-title { margin-bottom: 30px; }
+
+/* Download Resume button (works on ALL screen sizes) */
+.download-btn,
+article.resume > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding: 12px 22px;
+  background: var(--orange-yellow-crayola);
+  color: var(--smoky-black);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  border-radius: 12px;
+  box-shadow: var(--shadow-2);
+  transition: var(--transition-1);
+}
+
+.download-btn ion-icon,
+article.resume > a ion-icon {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.download-btn:hover,
+article.resume > a:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.download-btn:active,
+article.resume > a:active { transform: translateY(0); }
 
 
 /**
@@ -1033,13 +1013,10 @@ main {
 
 
 /**
- * skills 
+ * skills (progress bars)
  */
 
-.skills-title { margin-bottom: 20px; }
-
 .skills-list { padding: 20px; }
-
 
 .skills-item:not(:last-child) { margin-bottom: 15px; }
 
@@ -1056,26 +1033,9 @@ main {
   font-weight: var(--fw-300);
 }
 
-.skill-progress-bg {
-  background: var(--jet);
-  width: 100%;
-  height: 8px;
-  border-radius: 10px;
-}
+.skills-section { margin-top: 40px; }
 
-.skill-progress-fill {
-  background: var(--text-gradient-yellow);
-  height: 100%;
-  border-radius: inherit;
-}
-
-.skills-section {
-  margin-top: 40px;
-}
-
-.skills-item {
-  margin-bottom: 18px;
-}
+.skills-item { margin-bottom: 18px; }
 
 .title-wrapper {
   display: flex;
@@ -1085,6 +1045,7 @@ main {
 
 .skill-progress-bg {
   background: #2a2a2a;
+  width: 100%;
   height: 6px;
   border-radius: 10px;
   overflow: hidden;
@@ -1096,10 +1057,9 @@ main {
   border-radius: 10px;
 }
 
-/* Skill percentage color white */
 .skills-item data {
   color: #ffffff;
-  font-weight: 500; /* optional – thoda bold */
+  font-weight: 500;
 }
 
 article.resume {
@@ -1112,9 +1072,7 @@ article.resume {
   text-align: left;
 }
 
-.timeline .title-wrapper {
-  justify-content: flex-start;
-}
+.timeline .title-wrapper { justify-content: flex-start; }
 
 
 
@@ -1480,18 +1438,6 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 @media (min-width: 450px) {
 
-  /**
-   * client
-   */
-
-  .clients-item { min-width: calc(33.33% - 10px); }
-
-
-
-  /**
-   * #PORTFOLIO, BLOG 
-   */
-
   .project-img,
   .blog-banner-box { height: auto; }
 
@@ -1505,16 +1451,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 @media (min-width: 580px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
-
   :root {
-
-    /**
-     * typography
-     */
-
     --fs-1: 32px;
     --fs-2: 24px;
     --fs-3: 26px;
@@ -1522,14 +1459,9 @@ textarea.form-input::-webkit-resizer { display: none; }
     --fs-6: 15px;
     --fs-7: 15px;
     --fs-8: 12px;
-
   }
 
-
-
-  /**
-   * #REUSED STYLE
-   */
+  /* REUSED STYLE */
 
   .sidebar, article {
     width: 520px;
@@ -1554,22 +1486,14 @@ textarea.form-input::-webkit-resizer { display: none; }
     font-size: 18px;
   }
 
-
-
-  /**
-   * #MAIN
-   */
+  /* MAIN */
 
   main {
     margin-top: 60px;
     margin-bottom: 100px;
   }
 
-
-
-  /**
-   * #SIDEBAR
-   */
+  /* SIDEBAR */
 
   .sidebar {
     max-height: 180px;
@@ -1610,11 +1534,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     width: calc(100% - 64px);
   }
 
-
-
-  /**
-   * #NAVBAR
-   */
+  /* NAVBAR */
 
   .navbar { border-radius: 20px 20px 0 0; }
 
@@ -1622,11 +1542,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .navbar-link { --fs-8: 14px; }
 
-
-
-  /**
-   * #ABOUT
-   */
+  /* ABOUT */
 
   .about .article-title { margin-bottom: 20px; }
 
@@ -1714,22 +1630,17 @@ textarea.form-input::-webkit-resizer { display: none; }
     width: 35px;
   }
 
-  /* clients */
+  /* skills grid (tablet+) */
 
   .clients-list {
-    gap: 50px;
-    margin: 0 -30px;
-    padding: 45px;
-    scroll-padding-inline: 45px;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
   }
 
-  .clients-item { min-width: calc(33.33% - 35px); }
+  .skill { max-width: 150px; }
 
-
-
-  /**
-   * #RESUME
-   */
+  /* RESUME */
 
   .timeline-list { margin-left: 65px; }
 
@@ -1743,11 +1654,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .skills-item:not(:last-child) { margin-bottom: 25px; }
 
-
-
-  /**
-   * #PORTFOLIO, BLOG
-   */
+  /* PORTFOLIO, BLOG */
 
   .project-img, .blog-banner-box { border-radius: 16px; }
 
@@ -1755,11 +1662,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .blog-content { padding: 25px; }
 
-
-
-  /**
-   * #CONTACT
-   */
+  /* CONTACT */
 
   .mapbox {
     height: 380px;
@@ -1786,48 +1689,28 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 
 
-
-
 /**
  * responsive larger than 768px screen
  */
 
 @media (min-width: 768px) {
 
-  /**
-   * REUSED STYLE
-   */
-
   .sidebar, article { width: 700px; }
 
   .has-scrollbar::-webkit-scrollbar-button { width: 100px; }
 
-
-
-  /**
-   * SIDEBAR
-   */
+  /* SIDEBAR */
 
   .contacts-list {
     grid-template-columns: 1fr 1fr;
     gap: 30px 15px;
   }
 
-
-
-  /**
-   * NAVBAR
-   */
+  /* NAVBAR */
 
   .navbar-link { --fs-8: 15px; }
 
-
-
-  /**
-   * ABOUT
-   */
-
-  /* testimonials modal */
+  /* ABOUT: testimonials modal */
 
   .testimonials-modal {
     gap: 35px;
@@ -1836,11 +1719,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .modal-avatar-box img { width: 80px; }
 
-
-
-  /**
-   * PORTFOLIO
-   */
+  /* PORTFOLIO */
 
   .article-title { padding-bottom: 20px; }
 
@@ -1865,15 +1744,9 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .filter-item button.active { color: var(--orange-yellow-crayola); }
 
-  /* portfolio and blog grid */
-
   .project-list, .blog-posts-list { grid-template-columns: 1fr 1fr; }
 
-
-
-  /**
-   * CONTACT
-   */
+  /* CONTACT */
 
   .input-wrapper { grid-template-columns: 1fr 1fr; }
 
@@ -1881,10 +1754,8 @@ textarea.form-input::-webkit-resizer { display: none; }
     width: max-content;
     margin-left: auto;
   }
-  
+
 }
-
-
 
 
 
@@ -1894,38 +1765,18 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 @media (min-width: 1024px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
-
   :root {
-
-    /**
-    * shadow
-    */
-
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.125);
     --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.125);
     --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.125);
-
   }
-
-
-
-  /**
-   * REUSED STYLE
-   */
 
   .sidebar, article {
     width: 950px;
     box-shadow: var(--shadow-5);
   }
 
-
-
-  /**
-   * MAIN 
-   */
+  /* MAIN */
 
   main { margin-bottom: 60px; }
 
@@ -1935,11 +1786,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin: auto;
   }
 
-
-
-  /**
-   * NAVBAR
-   */
+  /* NAVBAR */
 
   .navbar {
     position: absolute;
@@ -1960,13 +1807,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .navbar-link { font-weight: var(--fw-500); }
 
-
-
-  /**
-   * ABOUT
-   */
-
-  /* service */
+  /* ABOUT: service */
 
   .service-list {
     grid-template-columns: 1fr 1fr;
@@ -1977,29 +1818,15 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .testimonials-item { min-width: calc(50% - 15px); }
 
-  /* clients */
-
-  .clients-item { min-width: calc(25% - 38px); }
-
-
-
-  /**
-   * PORTFOLIO
-   */
+  /* PORTFOLIO */
 
   .project-list { grid-template-columns: repeat(3, 1fr); }
 
-
-
-  /**
-   * BLOG
-   */
+  /* BLOG */
 
   .blog-banner-box { height: 230px; }
 
 }
-
-
 
 
 
@@ -2009,9 +1836,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 @media (min-width: 1250px) {
 
-  /**
-   * RESET
-   */
+  /* RESET */
 
   body::-webkit-scrollbar { width: 20px; }
 
@@ -2029,21 +1854,13 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   body::-webkit-scrollbar-button { height: 60px; }
 
-
-
-  /**
-   * REUSED STYLE
-   */
+  /* REUSED STYLE */
 
   .sidebar, article { width: auto; }
 
   article { min-height: 100%; }
 
-
-
-  /**
-   * MAIN
-   */
+  /* MAIN */
 
   main {
     max-width: 1200px;
@@ -2060,11 +1877,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin: 0;
   }
 
-
-
-  /**
-   * SIDEBAR
-   */
+  /* SIDEBAR */
 
   .sidebar {
     position: sticky;
@@ -2114,41 +1927,8 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .social-list { justify-content: center; }
 
-
-
-  /**
-	 * RESUME
-	 */
+  /* RESUME */
 
   .timeline-text { max-width: 700px; }
-
-
-  .download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
-  padding: 12px 22px;
-  background: var(--orange-yellow-crayola);
-  color: var(--smoky-black);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-500);
-  border-radius: 12px;
-  box-shadow: var(--shadow-2);
-  transition: var(--transition-1);
-}
-
-.download-btn ion-icon {
-  font-size: 18px;
-}
-
-.download-btn:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-.download-btn:active {
-  transform: translateY(0);
-}
 
 }
