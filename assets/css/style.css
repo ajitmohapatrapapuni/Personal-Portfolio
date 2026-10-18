@@ -2122,4 +2122,33 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .timeline-text { max-width: 700px; }
 
+
+  .download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding: 12px 22px;
+  background: var(--orange-yellow-crayola);
+  color: var(--smoky-black);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  border-radius: 12px;
+  box-shadow: var(--shadow-2);
+  transition: var(--transition-1);
+}
+
+.download-btn ion-icon {
+  font-size: 18px;
+}
+
+.download-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.download-btn:active {
+  transform: translateY(0);
+}
+
 }
